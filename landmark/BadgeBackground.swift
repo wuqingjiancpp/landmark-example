@@ -11,8 +11,7 @@ struct BadgeBackground: View {
     var body: some View {
         GeometryReader { geometry in
             Path { path in
-                var width: CGFloat = min(geometry.size.width, geometry.size.height)
-//                var width: CGFloat = 100.0
+                var width = min(geometry.size.width, geometry.size.height)
                 let height = width
                 let xScale: CGFloat = 0.832
                 let xOffset = (width * (1.0 - xScale)) / 2.0
@@ -32,10 +31,10 @@ struct BadgeBackground: View {
                             y: height * segment.line.y
                         )
                     )
-                    
+
                     path.addQuadCurve(
                         to: CGPoint(
-                            x: width * segment.line.x + xOffset,
+                            x: width * segment.curve.x + xOffset,
                             y: height * segment.curve.y
                         ),
                         control: CGPoint(
@@ -43,10 +42,7 @@ struct BadgeBackground: View {
                             y: height * segment.control.y
                         )
                     )
-
-                    
                 }
-
             }
             .fill(.linearGradient(
                 Gradient(colors: [Self.gradientStart, Self.gradientEnd]),
@@ -55,11 +51,9 @@ struct BadgeBackground: View {
             ))
         }
         .aspectRatio(1, contentMode: .fit)
-
     }
     static let gradientStart = Color(red: 239.0 / 255, green: 120.0 / 255, blue: 221.0 / 255)
     static let gradientEnd = Color(red: 239.0 / 255, green: 172.0 / 255, blue: 120.0 / 255)
-
 }
 
 struct BadgeBackground_Previews: PreviewProvider {
